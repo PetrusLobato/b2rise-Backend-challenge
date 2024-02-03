@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Products } from "./products_entities";
 import { PurchaseOrders } from "./purchasse_orders_entities";
 
@@ -6,12 +6,16 @@ import { PurchaseOrders } from "./purchasse_orders_entities";
 @Entity()
 export class PurchaseOrdersItems{
 
+    @PrimaryGeneratedColumn("uuid")
+    id:string
+
+
     @OneToOne(() => Products) 
-    @JoinColumn()
+    @JoinColumn({name: "product_id"})
     product: Products
     
     @ManyToOne(() => PurchaseOrders, purchaseOrders => purchaseOrders.purchaseOrdersItems)
-    @JoinColumn()
+    @JoinColumn({name: "purchase_order_id"})
     purchase_order: PurchaseOrders
 
 

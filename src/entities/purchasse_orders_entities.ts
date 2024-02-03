@@ -9,9 +9,9 @@ export class PurchaseOrders{
     @PrimaryGeneratedColumn("uuid")
     id:string
 
-    @OneToOne(() => Users)
-    @JoinColumn()
-    user: Users
+    @OneToOne(() => Users, user => user.purchaseOrders)
+    @JoinColumn({name: "user_id"})
+    user: Users | string
 
     @CreateDateColumn()
     date: Date

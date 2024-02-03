@@ -1,8 +1,10 @@
 export interface IUsers {
-    id: string
+    id?: string
     email: string
     username: string
     password: string
-    frist_name:string
+    first_name:string
     last_name: string
 }
+
+
