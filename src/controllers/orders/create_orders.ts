@@ -13,7 +13,7 @@ export const createOrdersController = async (req: Request, res: Response) => {
 
 export const createOrdersItemsController = async (req: Request, res: Response) => {
 
-    const result = await createOrdersItemsService(req.body)
+    const result = await createOrdersItemsService(req.body, req.params.idOrders)
 
     return res.status(201).json(result);
 }

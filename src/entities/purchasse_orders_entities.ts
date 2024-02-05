@@ -9,7 +9,7 @@ export class PurchaseOrders{
     @PrimaryGeneratedColumn("uuid")
     id:string 
 
-    @OneToOne(() => Users)
+    @OneToOne(() => Users,  {onDelete: "CASCADE"})
     @JoinColumn({name: "user_id"})
     user: Users | string
 

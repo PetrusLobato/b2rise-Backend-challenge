@@ -8,8 +8,8 @@ import { deleteOrdersItemsController } from "../controllers/orders/delete_orders
 const purchaseOrdersItemsRoute = Router();
 
 
-purchaseOrdersItemsRoute.post("/", createOrdersItemsController);
-purchaseOrdersItemsRoute.delete("/", deleteOrdersItemsController)
+purchaseOrdersItemsRoute.post("/:idOrders", createOrdersItemsController);
+purchaseOrdersItemsRoute.delete("/:idOrders", deleteOrdersItemsController)
 
 
 export default purchaseOrdersItemsRoute;

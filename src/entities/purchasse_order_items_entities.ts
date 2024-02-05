@@ -9,7 +9,6 @@ export class PurchaseOrdersItems{
     @PrimaryGeneratedColumn("uuid")
     id:string
 
-
     @OneToOne(() => Products) 
     @JoinColumn({name: "product_id"})
     product: Products
