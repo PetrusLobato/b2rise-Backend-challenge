@@ -8,9 +8,8 @@ export const listUsersService = async (): Promise<IUsers[]> => {
 
   const myRepository = AppDataSource.getRepository(Users);
 
-  const allUsers =  await myRepository.find({ relations:{purchaseOrders:true}});
+  const allUsers =  await myRepository.find();
 
- 
   return allUsers
 
 }

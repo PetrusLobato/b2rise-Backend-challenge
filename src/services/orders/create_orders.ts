@@ -23,18 +23,20 @@ export const createOrdersService = async (data:IOrdersLogin): Promise<any> => {
   if(!passwordCheck){
     console.log("User or password invalid", 401)
   }
-  
 
   const orders = myOrders.create({
     user:verificationUser?.id || ""
-
+      
   })
-
+      
   await myOrders.save(orders);
-
+      
   return orders
- }
-
+  
+    
+}
+    
+    
 
 export const createOrdersItemsService = async (data:IPurchaseOrdersItems): Promise<string> => {
 

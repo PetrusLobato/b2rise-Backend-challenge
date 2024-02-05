@@ -5,21 +5,19 @@ import { IUsers } from "../../interface/users/interface_users";
 
 
 
-export const createUserService = async (data:IUsers): Promise<IUsers> => {
+export const listUserService = async (id:string): Promise<IUsers> => {
 
   const myRepository = AppDataSource.getRepository(Users);
 
+
   const findUser = await myRepository.findOneBy({
-    email:data.email
+    id:id
   })
 
-  if(findUser){
-    throw new AppError ("Email already exists", 409)
+  if(!findUser){
+    throw new AppError ("Users not exist", 404)
   }
-  const user = myRepository.create(data);
-  await myRepository.save(user);
 
- 
-  return user
+  return findUser!
 
 }

@@ -8,5 +8,5 @@ export const listUsersController = async (req: Request, res: Response) => {
 
     const result = await listUsersService();
 
-    return res.status(201).json(result);
+    return res.status(200).json(result);
 }

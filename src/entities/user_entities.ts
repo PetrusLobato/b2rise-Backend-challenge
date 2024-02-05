@@ -1,5 +1,5 @@
 import { hashSync } from "bcryptjs";
-import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, DeleteDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PurchaseOrders } from "./purchasse_orders_entities";
 
 
@@ -10,7 +10,7 @@ export class Users{
     @PrimaryGeneratedColumn("uuid")
     id:string
 
-    @Column({length:100, nullable:false, unique:true})
+    @Column({length:100, nullable:false})
     email:string
 
     @Column({length:50, nullable:false})
@@ -27,8 +27,10 @@ export class Users{
     @Column({length:50, nullable:false})
     last_name:string
 
-    @OneToOne(()=> PurchaseOrders, purchaseOrders => purchaseOrders.user )
+    @OneToOne(()=> PurchaseOrders)
     purchaseOrders: PurchaseOrders
+
+
 
 
 

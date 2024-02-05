@@ -7,9 +7,9 @@ import { PurchaseOrdersItems } from "./purchasse_order_items_entities";
 export class PurchaseOrders{
 
     @PrimaryGeneratedColumn("uuid")
-    id:string
+    id:string 
 
-    @OneToOne(() => Users, user => user.purchaseOrders)
+    @OneToOne(() => Users)
     @JoinColumn({name: "user_id"})
     user: Users | string
 
@@ -19,4 +19,5 @@ export class PurchaseOrders{
     @OneToMany(() => PurchaseOrdersItems, purchaseOrdersItems => purchaseOrdersItems.purchase_order)
     purchaseOrdersItems: PurchaseOrdersItems[]
 
+   
 }
