@@ -9,7 +9,8 @@ const purchaseOrdersItemsRoute = Router();
 
 
 purchaseOrdersItemsRoute.post("/:idOrders", createOrdersItemsController);
-purchaseOrdersItemsRoute.delete("/:idOrders", deleteOrdersItemsController)
+purchaseOrdersItemsRoute.delete("/:idOrders", deleteOrdersItemsController);
+
 
 
 export default purchaseOrdersItemsRoute;
