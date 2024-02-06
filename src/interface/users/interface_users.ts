@@ -7,6 +7,14 @@ export interface IUsers {
     last_name: string
 }
 
+export interface IUsersResponse {
+    id?: string
+    email: string
+    username: string
+    first_name:string
+    last_name: string
+}
+
 
 export interface IUpdateUsers {
     id?: string

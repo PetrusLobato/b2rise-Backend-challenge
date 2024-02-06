@@ -1,9 +1,10 @@
 import { AppError } from "../../errors/error";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/user_entities";
-import { IUsers } from "../../interface/users/interface_users";
+import { IUsers, IUsersResponse } from "../../interface/users/interface_users";
+import { resultUserSchema } from "../../schemas/user_schemas";
 
-export const createUserService = async (data: IUsers): Promise<IUsers> => {
+export const createUserService = async (data: IUsers): Promise<IUsersResponse | any> => {
   const myRepository = AppDataSource.getRepository(Users);
 
   const findUser = await myRepository.findOneBy({
@@ -17,5 +18,7 @@ export const createUserService = async (data: IUsers): Promise<IUsers> => {
   const user = myRepository.create(data);
   await myRepository.save(user);
 
-  return user;
+  const responseUser =  resultUserSchema.parse(user);
+
+  return responseUser;
 };

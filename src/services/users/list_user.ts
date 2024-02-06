@@ -1,9 +1,10 @@
 import { AppError } from "../../errors/error";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/user_entities";
-import { IUsers } from "../../interface/users/interface_users";
+import { IUsersResponse } from "../../interface/users/interface_users";
+import { resultUserSchema } from "../../schemas/user_schemas";
 
-export const listUserService = async (id: string): Promise<IUsers> => {
+export const listUserService = async (id: string): Promise<IUsersResponse | any> => {
   const myRepository = AppDataSource.getRepository(Users);
 
   const findUser = await myRepository.findOneBy({
@@ -14,5 +15,7 @@ export const listUserService = async (id: string): Promise<IUsers> => {
     throw new AppError("Users not exist", 404);
   }
 
-  return findUser!;
+  const responseUser =  resultUserSchema.parse(findUser);
+
+  return responseUser;
 };

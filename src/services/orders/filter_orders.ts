@@ -1,6 +1,7 @@
 import AppDataSource from "../../data-source";
 import { PurchaseOrdersItems } from "../../entities/purchasse_order_items_entities";
 import { IPurchaseOrdersItems } from "../../interface/orders/interface_orders";
+import { arrayhistorySchema, historySchemaResult } from "../../schemas/orders_schemas";
 
 export const filterOrdersItemsService = async (
   filter: any
@@ -14,20 +15,31 @@ export const filterOrdersItemsService = async (
       
       if(key == "price"){
         
+        
         const filterOrders = await myRepository.find({
           where: {
             price: filter.price
-          }
+          },
+          relations: {product:true}
         });
-       return filterOrders;
+
+        
+        const result = arrayhistorySchema.parse(filterOrders);
+
+        return result
 
       }else if(key == "quantity"){
+
         const filterOrders = await myRepository.find({
           where: {
             quantity: filter.quantity
-          }
+          },
+          relations: {product:true}
         });
-        return filterOrders;
+
+        const result = arrayhistorySchema.parse(filterOrders);
+        
+        return result
       }
     }
   }

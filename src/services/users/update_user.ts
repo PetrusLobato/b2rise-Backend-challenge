@@ -1,12 +1,13 @@
 import { AppError } from "../../errors/error";
 import AppDataSource from "../../data-source";
 import { Users } from "../../entities/user_entities";
-import { IUpdateUsers, IUsers } from "../../interface/users/interface_users";
+import { IUpdateUsers, IUsers, IUsersResponse } from "../../interface/users/interface_users";
+import { resultUserSchema } from "../../schemas/user_schemas";
 
 export const upadateUserService = async (
   data: IUpdateUsers,
   id: string
-): Promise<IUsers> => {
+): Promise<IUsersResponse | any> => {
   const myRepository = AppDataSource.getRepository(Users);
 
   const findUser = await myRepository.findOneBy({
@@ -24,5 +25,7 @@ export const upadateUserService = async (
 
   await myRepository.save(updateUser);
 
-  return updateUser;
+  const responseUser =  resultUserSchema.parse(findUser);
+
+  return responseUser;
 };

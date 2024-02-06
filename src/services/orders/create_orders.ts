@@ -10,8 +10,11 @@ import { PurchaseOrders } from "../../entities/purchasse_orders_entities";
 import { AppError } from "../../errors/error";
 import { PurchaseOrdersItems } from "../../entities/purchasse_order_items_entities";
 import { Products } from "../../entities/products_entities";
+import { purchaseOrdersItemsSchemaResult, purchaseOrdersSchemaResult } from "../../schemas/orders_schemas";
 
-export const createOrdersService = async (data: IOrdersLogin): Promise<IPurchaseOrders> => {
+
+
+export const createOrdersService = async (data: IOrdersLogin): Promise<IPurchaseOrders | any> => {
 
   const myRepository = AppDataSource.getRepository(Users);
   const myOrders = AppDataSource.getRepository(PurchaseOrders);
@@ -31,13 +34,33 @@ export const createOrdersService = async (data: IOrdersLogin): Promise<IPurchase
     throw new AppError("User or password invalid", 401);
   }
 
-  const orders = myOrders.create({
-    user: verificationUser?.id || "",
+  const orders = await myOrders.findOne({ 
+    where: {
+      user:verificationUser
+    },
+    relations: {user:true}
   });
 
-  await myOrders.save(orders);
 
-  return orders;
+  if(!orders){
+
+    const createOrders = myOrders.create({
+      user: verificationUser,
+    });
+  
+    await myOrders.save(createOrders);
+
+    const result =  purchaseOrdersSchemaResult.parse(createOrders);
+  
+    return result
+  }
+  
+
+  const result =  purchaseOrdersSchemaResult.parse(orders);
+
+  return result
+
+  
 };
 
 export const createOrdersItemsService = async (data: IPurchaseOrdersItems, idOrders: string): Promise<IPurchaseOrdersItems | any> => {
@@ -73,5 +96,7 @@ export const createOrdersItemsService = async (data: IPurchaseOrdersItems, idOrd
 
   await myRepositoryOrderItems.save(ordersItems);
 
-  return ordersItems;
+  const result = purchaseOrdersItemsSchemaResult.parse(ordersItems)
+
+  return result;
 };

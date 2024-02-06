@@ -16,7 +16,7 @@ export const createProductService = async (
     throw new AppError("Product already exists", 409);
   }
 
-  const product = myRepository.create(data);
+  const product = myRepository.create({...data, price: Number(data.price)});
   await myRepository.save(product);
 
   return product;
