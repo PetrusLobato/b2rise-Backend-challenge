@@ -1,0 +1,573 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title": "API de e-commerce",
+        "description": "API de e-commerce para venda de camisetas, canecas e adesivos",
+        "termsOfService": "http://localhost:3000/terms",
+        "contact": {
+            "email": "exemplo@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "API de desenvolvimento"
+        }
+    ],
+    "paths": {
+        "/users/":{
+            "post":{
+                "summary": "Cadastro de Usuário",
+                "description": "Essa rota será responsável por cadastrar um novo usuário",
+                "tags": ["User"],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schema/User"
+                            },
+                            "examples":{
+                                "user":{
+                                    "value":{
+                                        "email": "teste@gmail.com",
+                                        "username": "Teste",
+                                        "password": "1234",
+                                        "first_name":"Test",
+                                        "last_name": "New"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "Usuário Criado",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties":{
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "email":{
+                                            "type": "string"
+                                        },
+                                        "username":{
+                                            "type": "string"
+                                        },
+                                        "first_name":{
+                                            "type": "string"
+                                        },
+                                        "last_name":{
+                                            "type": "string"
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Email não existe"
+                    }
+
+                }
+            },
+            "get":{
+                "summary": "Busca de usuarios",
+                "description": "Essa rota será responsável por buscar todos os usuários no banco de dados",
+                "tags": ["User"],
+                "responses": {
+                    "200": {
+                        "description": "Usuários",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties":{
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "email":{
+                                            "type": "string"
+                                        },
+                                        "username":{
+                                            "type": "string"
+                                        },
+                                        "first_name":{
+                                            "type": "string"
+                                        },
+                                        "last_name":{
+                                            "type": "string"
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+        },
+        "/users/{id}":{
+            "patch":{
+                "summary": "Atualização de cadastro do usuário",
+                "description": "Essa rota será responsável por atualizar os dados do usuário",
+                "tags": ["User"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "id do usuário",
+                        "required": true
+                    }
+                ],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schema/User"
+                            },
+                            "examples":{
+                                "user":{
+                                    "value":{
+                                        "email": "novonome@gmail.com",
+                                        "username": "Novo",
+                                        "password": "1234",
+                                        "first_name":"Novo teste",
+                                        "last_name": "Test"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "Atualização de usuario",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties":{
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "email":{
+                                            "type": "string"
+                                        },
+                                        "username":{
+                                            "type": "string"
+                                        },
+                                        "first_name":{
+                                            "type": "string"
+                                        },
+                                        "last_name":{
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }        
+                        
+                    },
+                    "404":{
+                        "description": "Usuario não existe"
+                    }   
+            }
+            },
+            "delete":{
+                "summary": "Exclusão do cadastro do usuário",
+                "description": "Essa rota será responsável por deletar do banco de dados um usuário",
+                "tags": ["User"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "id do usuário",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "204": {
+                        "description": "Usuário Deletado"
+                    },
+                    "404":{
+                        "description": "Usuario não existe"
+                    }
+            
+                }
+                
+            }
+        },
+        "/products/":{
+            "post":{
+                "summary": "Cadastro de Produto",
+                "description": "Essa rota será responsável por cadastrar um novo produto",
+                "tags": ["Product"],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schema/Product"
+                            },
+                            "examples":{
+                                "product":{
+                                    "value":{
+                                        "title": "camisa do Flamengo",
+                                        "price": 100,
+                                        "description": "camisa de algodão",
+                                        "category":"camisa",
+                                        "image": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "Produto Criado",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties":{
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "title":{
+                                            "type": "string"
+                                        },
+                                        "price":{
+                                            "type": "number"
+                                        },
+                                        "description":{
+                                            "type": "string"
+                                        },
+                                        "category":{
+                                            "type": "string"
+                                        },
+                                        "image":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Produto já existe"
+                    }
+
+                }
+            }
+        },
+        "/products/{id}":{
+            "get":{
+                "summary": "Busca por Produto por Id",
+                "description": "Essa rota será responsável por buscar um produto pelo seu id no banco de dados",
+                "tags": ["Product"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "id do produto",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto Encontrado",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref":"#/components/schema/Product"
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description": "Produto não existe"
+                    }
+                }
+            },
+            "patch":{
+                "summary": "Atualização de cadastro do produto",
+                "description": "Essa rota será responsável por atualizar os dados do produto",
+                "tags": ["Product"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "id do produto",
+                        "required": true
+                    }
+                ],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schema/Product"
+                            },
+                            "examples":{
+                                "product":{
+                                    "value":{
+                                        "title": "camisa do Flamengoooooo",
+                                        "price": 100,
+                                        "description": "camisa de algodão",
+                                        "category":"camisa",
+                                        "image": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "Atualização de produto",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref":"#/components/schema/Product"
+                                }
+                            }
+                        }        
+                        
+                    },
+                    "404":{
+                        "description": "Produto não existe"
+                    }   
+            }
+            },
+            "delete":{
+                "summary": "Exclusão do cadastro de um produto",
+                "description": "Essa rota será responsável por deletar no banco de dados um produto",
+                "tags": ["Product"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "id do usuário",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "204": {
+                        "description": "Produto Deletado"
+                    },
+                    "404":{
+                        "description": "Produto não existe"
+                    }
+            
+                }
+                
+            }
+        },
+        "/orders/":{
+            "post":{
+                "summary": "Login do Usuário",
+                "description": "Essa rota será responsável para o usuário logar na sua conta",
+                "tags": ["Login"],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schema/Orders"
+                            },
+                            "examples":{
+                                "login":{
+                                    "value":{
+                                        "email": "teste@gmail.com",
+                                        "password": "1234"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "Usuário Logado",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties":{
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "data":{
+                                            "type": "date"
+                                        },
+                                        "user_id":{
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Email ou senha invalida"
+                    }
+
+                }
+            }
+        },
+        "/orders/items/{idOrders}":{
+            "post":{
+                "summary": "Criação de pedido",
+                "description": "Essa rota será responsável por criar um pedido com o produto selecionado",
+                "tags": ["Orders"],
+                "parameters":[
+                    {
+                        "name":"idOrders",
+                        "in": "path",
+                        "description": "id do usuário",
+                        "required": true
+                    }
+                ],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schema/OrdersItems"
+                            },
+                            "examples":{
+                                "login":{
+                                    "value":{
+                                        "product_id": "00c7fe6a-112b-482d-9895-d4876ed7349c",
+                                        "quantity": 1,
+                                        "price": 10
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pedido realizado",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref":"#/components/schema/OrdersItemsResult"
+
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description": "Produto ou pedido não existe"
+                    }
+                }
+            }
+        }
+        
+    },
+    
+    "components":{
+        "schema":{
+            "User":{
+                "type": "object",
+                "properties":{
+                    "email":{
+                        "type": "string"
+                    },
+                    "username":{
+                        "type": "string"
+                    },
+                    "password":{
+                        "type": "string"
+                    },
+                    "first_name":{
+                        "type": "string"
+                    },
+                    "last_name":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Product":{
+                "type": "object",
+                "properties":{
+                    "title":{
+                        "type": "string"
+                    },
+                    "price":{
+                        "type": "number"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "category":{
+                        "type": "string"
+                    },
+                    "image":{
+                        "type": "string"
+                    }
+                }
+            },
+            "Orders":{
+                "type": "object",
+                "properties":{
+                    "email":{
+                        "type": "string"
+                    },
+                    "password":{
+                        "type": "string"
+                    }
+                    
+                }
+            },
+            "OrdersItems":{
+                "type": "object",
+                "properties":{
+                    "quantity":{
+                        "type": "number"
+                    },
+                    "price":{
+                        "type": "number"
+                    },
+                    "product_id":{
+                        "type":"string"
+                    }
+                }
+            },
+            "OrdersItemsResult":{
+                "type": "object",
+                "properties":{
+                    "id":{
+                        "type":"string"
+                    },
+                    "quantity":{
+                        "type": "number"
+                    },
+                    "price":{
+                        "type": "number"
+                    },
+                    "product_id":{
+                        "type":"string"
+                    },
+                    "purchase_order_id":{
+                        "type":"string"
+                    }
+                    
+                }
+            }
+        }
+    }
+
+
+        
+}
