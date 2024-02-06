@@ -26,3 +26,5 @@ npm run dev
 
 ````
 
+#### Para entender o que o projeto trabalha, basta olhar o arquivo src/img/B2RISE.drawio.png
+
