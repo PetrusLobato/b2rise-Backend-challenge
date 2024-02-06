@@ -28,3 +28,9 @@ npm run dev
 
 #### Para entender o que o projeto trabalha, basta olhar o arquivo src/img/B2RISE.drawio.png
 
+### Quando o projeto estiver rodando na porta 3000, segue o link para documentação.
+Link: http://localhost:3000/documentation/
+
+
+
+
