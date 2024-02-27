@@ -11,6 +11,12 @@ yarn install
 <br>
 
 ### **Configure as variáveis de ambiente no seu .env**, passando as credenciais corretas para conectar em seu banco local.
+````
+TYPEORM_HOST= localhost
+TYPEORM_USERNAME= Nome
+TYPEORM_PASSWORD= senha
+TYPEORM_DATABASE= nome do banco de dados
+````
 
 **Para executar as migrations**, basta utilizar o comando abaixo.
 

@@ -19,7 +19,7 @@ export class Products{
     @Column({length:50, nullable:false})
     category:string
 
-    @Column({length:200, })
+    @Column({length:190 })
     image:string
 
 

@@ -1,0 +1,33 @@
+version: "3"
+
+services:  
+
+  db:
+    container_name: postgres-db
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+
+    
+  api:
+    container_name: e-commerce
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: yarn dev
+    restart: always
+    expose:
+      - 3000
+    ports:
+    - "3000:3000"  
+    depends_on: 
+      db:
+        condition: service_completed_successfully
+   
